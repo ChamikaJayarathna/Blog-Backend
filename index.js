@@ -25,6 +25,19 @@ app.use('/api/auth', authRoutes);
 
 
 
+app.use((err, req, res, next) => {
+    const statusCord = err.statusCord || 500;
+    const message = err.message || 'Internal Server Error';
+
+    res.status(statusCord).json({
+        success: false,
+        statusCord,
+        message
+    })
+});
+
+
+
 
 
 

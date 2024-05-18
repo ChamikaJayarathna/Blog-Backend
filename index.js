@@ -2,10 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user-route.js';
+import authRoutes from './routes/auth-route.js';
 
 dotenv.config();
-
-const app = express();
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
@@ -15,8 +14,14 @@ mongoose.connect(process.env.MONGO_URI)
     console.error("Error connecting to MongoDB:", error);
 });
 
+const app = express();
+app.use(express.json());
+
+
+
 
 app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
 
 
